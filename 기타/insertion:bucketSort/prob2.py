@@ -37,13 +37,9 @@ line[3] = 키mm, line[4] = 몸무게kg, line[5] = BMI
 def compute_bmi_inplace(table):
     for row in table:
         try:
-            height_mm = float(row[3])
+            height_mm = float(row[3]) / 1000.0
             weight_kg = float(row[4])
-            height_m = height_mm / 1000.0  # mm -> m
-            if height_m <= 0:
-                row[5] = 0.0
-            else:
-                row[5] = weight_kg / (height_m * height_m)
+            row[5] = 0.0 if height_mm <= 0 else (weight_kg / (height_mm * height_mm))
         except Exception:
             row[5] = 0.0
 
